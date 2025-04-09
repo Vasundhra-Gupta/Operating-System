@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <algorithm>
 #include "../headers/process.h"
 using namespace std;
 
@@ -10,15 +11,6 @@ void CT(vector<Process> &processes, int n)
     {
         currentTime = max(currentTime, processes[i].AT) + processes[i].BT;
         processes[i].CT = currentTime;
-    }
-}
-
-void FCFS(vector<Process> &processes, int n)
-{
-    for (int i = 0; i < n; i++)
-    {
-        processes[i].WT = processes[i].CT - processes[i].BT - processes[i].AT;
-        processes[i].TT = processes[i].CT - processes[i].AT;
     }
 }
 
@@ -34,9 +26,10 @@ int main()
         {3, 2, 2},
         {4, 3, 1},
         {5, 4, 5}};
-    // inputProcess(processes, n);
+    // inputProcess(proc(esses, n);
+    // sort(processes[1][].begin(), processes[1].end());
     CT(processes, n);
-    FCFS(processes, n);
+    WT_TT(processes, n);
     showProcess(processes, n);
 
     return 0;
