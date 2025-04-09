@@ -17,6 +17,7 @@ int findNextProcess(vector<Process> process, int currTime)
     }
     return idx;
 }
+
 void SJFPreemptive(vector<Process> &process)
 {
     int n = process.size();
@@ -45,6 +46,7 @@ void SJFPreemptive(vector<Process> &process)
     WT_TT(process);
     showProcess(process);
 }
+
 int main()
 {
     SJFPreemptive(allProcesses);
