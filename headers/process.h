@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <climits>
 using namespace std;
 
 class Process
@@ -19,6 +20,14 @@ public:
     }
 };
 
+vector<Process> allProcesses = {
+    {1, 0, 10, 3},
+    {2, 1, 1, 1},
+    {3, 2, 2, 3},
+    {4, 3, 1, 4},
+    {5, 4, 5, 2}
+};
+
 void inputProcess(vector<Process> &processes, int n)
 {
     cout << "Enter the arrival and burst time of the processes respectively one by one" << endl;
@@ -30,7 +39,7 @@ void inputProcess(vector<Process> &processes, int n)
     }
 }
 
-void showProcess(vector<Process> processes, int n)
+void showProcess(vector<Process> processes)
 {
     cout << "Process\tAT\tBT\tPrior\tCT\tWT\tTT" << endl;
     for (auto &p : processes)
@@ -39,11 +48,27 @@ void showProcess(vector<Process> processes, int n)
     }
 }
 
-void WT_TT(vector<Process> &processes, int n)
+void WT_TT(vector<Process> &processes)
 {
+    int n = processes.size();
     for (int i = 0; i < n; i++)
     {
         processes[i].WT = processes[i].CT - processes[i].BT - processes[i].AT;
         processes[i].TT = processes[i].CT - processes[i].AT;
     }
+}
+
+int findNextProcess(vector<Process> process, int currTime)
+{
+    int minRem = INT_MAX;
+    int idx = -1;
+    for (int i = 0; i < process.size(); i++)
+    {
+        if (process[i].AT <= currTime && process[i].remainingTime > 0 && process[i].remainingTime < minRem)
+        {
+            minRem = process[i].remainingTime;
+            idx = i;
+        }
+    }
+    return idx;
 }
