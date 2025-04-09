@@ -5,7 +5,7 @@ using namespace std;
 class Process
 {
 public:
-    int id, AT, BT, WT, TT, CT, priority;
+    int id, AT, BT, WT, TT, CT, priority, remainingTime = 0;
     Process(int pId, int arrival, int burst, int prior = 0)
     {
         this->id = pId;
@@ -15,6 +15,7 @@ public:
         this->CT = 0;
         this->WT = 0;
         this->TT = 0;
+        this->remainingTime = burst;
     }
 };
 
@@ -28,12 +29,13 @@ void inputProcess(vector<Process> &processes, int n)
         cin >> processes[i].AT >> processes[i].BT;
     }
 }
+
 void showProcess(vector<Process> processes, int n)
 {
-    cout << "Process\tAT\tPrior\tBT\tCT\tWT\tTT" << endl;
+    cout << "Process\tAT\tBT\tPrior\tCT\tWT\tTT" << endl;
     for (auto &p : processes)
     {
-        cout << p.id << "\t" << p.AT << "\t"<< p.priority << "\t" << p.BT << "\t" << p.CT << "\t" << p.WT << "\t" << p.TT << endl;
+        cout << p.id << "\t" << p.AT << "\t" << p.BT << "\t" << p.priority << "\t" << p.CT << "\t" << p.WT << "\t" << p.TT << endl;
     }
 }
 
