@@ -1,22 +1,8 @@
 #include <iostream>
-#include <climits>
-#include "../headers/maxHeap.h"
+#include "../headers/process.h"
 using namespace std;
 
-int findNextProcess(vector<Process> process, int currTime)
-{
-    int minRem = INT_MAX;
-    int idx = -1;
-    for (int i = 0; i < process.size(); i++)
-    {
-        if (process[i].AT <= currTime && process[i].remainingTime > 0 && process[i].remainingTime < minRem)
-        {
-            minRem = process[i].remainingTime;
-            idx = i;
-        }
-    }
-    return idx;
-}
+//we r checking things only when remaintime>0;
 
 void SJFPreemptive(vector<Process> &process)
 {
