@@ -21,6 +21,7 @@ void SJFNonPreemptive(vector<Process> &processes)
 {
     int n = processes.size();
     vector<bool> completed(n, false);
+    vector<GanttChart> ganttchart;
 
     int i = 0;
     int complete = 0;
@@ -31,11 +32,14 @@ void SJFNonPreemptive(vector<Process> &processes)
         {
 
             i = findNextProcess(processes, currentTime, completed);
-            currentTime += processes[i].BT;
+            int startTime = currentTime;
+            int endTime = currentTime + processes[i].BT;
+            currentTime = endTime;
             processes[i].CT = currentTime;
             processes[i].remainingTime = 0;
             completed[i] = true;
             complete++;
+            ganttchart.push_back({i + 1, startTime, endTime});
         }
         else
         {
@@ -44,6 +48,7 @@ void SJFNonPreemptive(vector<Process> &processes)
     }
     WT_TT(processes);
     showProcess(processes);
+    printGanttChart(ganttchart);
 }
 
 int main()

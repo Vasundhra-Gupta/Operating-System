@@ -22,16 +22,20 @@ void PriorityNonPreemptive(vector<Process> process)
     int i = 0;
     int complete = 0;
     vector<bool> completed(n, false);
+    vector<GanttChart> ganttchart;
     while (complete < n)
     {
         int i = findNextProcess(process, currentTime, completed);
         if (i != -1)
         {
-            currentTime += process[i].BT;
+            int startTime = currentTime;
+            int endTime = currentTime + process[i].BT;
+            currentTime = endTime;
             process[i].CT = currentTime;
             process[i].remainingTime = 0;
             completed[i] = true;
             complete++;
+            ganttchart.push_back({i + 1, startTime, endTime});
         }
         else
         {
@@ -41,6 +45,7 @@ void PriorityNonPreemptive(vector<Process> process)
 
     WT_TT(process);
     showProcess(process);
+    printGanttChart(ganttchart);
 }
 int main()
 {

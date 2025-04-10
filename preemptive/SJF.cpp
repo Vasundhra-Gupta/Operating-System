@@ -21,14 +21,26 @@ int findNextProcess(vector<Process> process, int currTime)
 void SJFPreemptive(vector<Process> &process)
 {
     int n = process.size();
+    vector<GanttChart> ganttchart;
     int currentTime = 0;
     int completed = 0;
+    int prevProcess = 0;
+    int startTime = 0;
     int i = 0;
     while (completed < n)
     {
         i = findNextProcess(process, currentTime);
         if (i != -1)
         {
+            if (i != prevProcess)
+            {
+                if (prevProcess != -1)
+                {
+                    ganttchart.push_back({prevProcess + 1, startTime, currentTime});
+                }
+                startTime = currentTime;
+                prevProcess = i;
+            }
             process[i].remainingTime--;
             currentTime++;
             if (process[i].remainingTime == 0)
@@ -39,12 +51,23 @@ void SJFPreemptive(vector<Process> &process)
         }
         else
         {
+            if (prevProcess != -1)
+            {
+                ganttchart.push_back(GanttChart(prevProcess + 1, startTime, currentTime));
+                prevProcess = -1;
+            }
             currentTime++;
+        }
+        if (prevProcess != -1)
+        {
+
+            ganttchart.push_back({prevProcess + 1, startTime, currentTime});
         }
     }
 
     WT_TT(process);
     showProcess(process);
+    printGanttChart(ganttchart);
 }
 
 int main()

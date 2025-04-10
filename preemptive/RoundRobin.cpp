@@ -6,6 +6,9 @@ void RoundRobin(vector<Process> process, int quantum)
 {
     int n = process.size();
     int currentTime = 0;
+    int prevProcess = 0;
+
+    vector<GanttChart> ganttchart;
     vector<bool> complete(n, false);
     int completed = 0;
     int i = 0;
@@ -17,11 +20,9 @@ void RoundRobin(vector<Process> process, int quantum)
             {
                 currentTime += min(process[i].remainingTime, quantum);
                 process[i].remainingTime -= min(process[i].remainingTime, quantum);
-                cout << "process ongoing is " << i + 1 << endl;
             }
             if (process[i].remainingTime == 0)
             {
-                cout << "process done is " << i + 1 << endl;
                 process[i].CT = currentTime;
                 completed++;
                 complete[i] = true;
@@ -34,8 +35,6 @@ void RoundRobin(vector<Process> process, int quantum)
             i++;
             i = i % n;
         }
-        // cout<<"Arrived"<<i<<endl;
-        // cout<<(bool)complete[i]<<endl;
     }
     WT_TT(process);
     showProcess(process);

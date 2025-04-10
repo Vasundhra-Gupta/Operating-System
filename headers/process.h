@@ -20,13 +20,27 @@ public:
     }
 };
 
+class GanttChart
+{
+public:
+    string pid;
+    int startTime;
+    int endTime;
+
+    GanttChart(int id, int start, int end)
+    {
+        this->pid = "P" + to_string(id);
+        this->startTime = start;
+        this->endTime = end;
+    }
+};
+
 vector<Process> allProcesses = {
     {1, 0, 10, 3},
     {2, 1, 1, 1},
     {3, 2, 2, 3},
     {4, 3, 1, 4},
-    {5, 4, 5, 2}
-};
+    {5, 4, 5, 2}};
 
 void inputProcess(vector<Process> &processes, int n)
 {
@@ -56,4 +70,23 @@ void WT_TT(vector<Process> &processes)
         processes[i].WT = processes[i].CT - processes[i].BT - processes[i].AT;
         processes[i].TT = processes[i].CT - processes[i].AT;
     }
+    
+}
+
+void printGanttChart(vector<GanttChart> &ganttchart)
+{
+    cout << "\nGantt Chart:\n\n";
+    
+    for (auto &p : ganttchart)
+    {
+        cout << "|  " << p.pid << "  ";
+    }
+    cout << "|\n";
+
+    cout << ganttchart[0].startTime;
+    for (auto &p : ganttchart)
+    {
+        cout <<"     "<< p.endTime;
+    }
+    cout << endl;
 }
