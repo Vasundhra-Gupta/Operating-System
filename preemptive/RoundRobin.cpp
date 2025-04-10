@@ -6,11 +6,12 @@ void RoundRobin(vector<Process> process, int quantum)
 {
     int n = process.size();
     int currentTime = 0;
-    int prevProcess = 0;
 
     vector<GanttChart> ganttchart;
+
     vector<bool> complete(n, false);
     int completed = 0;
+
     int i = 0;
     while (completed < n)
     {
@@ -18,8 +19,11 @@ void RoundRobin(vector<Process> process, int quantum)
         {
             if (process[i].AT <= currentTime && process[i].remainingTime > 0)
             {
-                currentTime += min(process[i].remainingTime, quantum);
+                int startTime = currentTime;
+                int endTime = startTime + min(process[i].remainingTime, quantum);
+                currentTime = endTime;
                 process[i].remainingTime -= min(process[i].remainingTime, quantum);
+                ganttchart.push_back({i + 1, startTime, endTime});
             }
             if (process[i].remainingTime == 0)
             {
@@ -38,6 +42,7 @@ void RoundRobin(vector<Process> process, int quantum)
     }
     WT_TT(process);
     showProcess(process);
+    printGanttChart(ganttchart);
 }
 
 int main()

@@ -86,7 +86,7 @@ void printGanttChart(vector<GanttChart> &ganttchart)
     cout << ganttchart[0].startTime;
     for (auto &p : ganttchart)
     {
-        cout <<"     "<< p.endTime;
+        cout <<"      "<< p.endTime;
     }
     cout << endl;
 }

@@ -25,7 +25,7 @@ void PriorityPreemptive(vector<Process> &process)
     int currentTime = 0;
     int i = 0;
     int complete = 0;
-    int prevProcess = -1;
+    int prevProcess = -1;// for gantt chart
     int startTime = 0;
 
     while (complete < n)
@@ -63,7 +63,6 @@ void PriorityPreemptive(vector<Process> &process)
         }
 
         if(prevProcess!=-1){
-
             ganttchart.push_back({prevProcess + 1, startTime, currentTime});
         }
     }
