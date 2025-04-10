@@ -57,18 +57,3 @@ void WT_TT(vector<Process> &processes)
         processes[i].TT = processes[i].CT - processes[i].AT;
     }
 }
-
-int findNextProcess(vector<Process> process, int currTime)
-{
-    int minRem = INT_MAX;
-    int idx = -1;
-    for (int i = 0; i < process.size(); i++)
-    {
-        if (process[i].AT <= currTime && process[i].remainingTime > 0 && process[i].remainingTime < minRem)
-        {
-            minRem = process[i].remainingTime;
-            idx = i;
-        }
-    }
-    return idx;
-}

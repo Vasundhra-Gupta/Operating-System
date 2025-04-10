@@ -2,7 +2,21 @@
 #include "../headers/process.h"
 using namespace std;
 
-//we r checking things only when remaintime>0;
+// we r checking things only when remaintime>0;
+int findNextProcess(vector<Process> process, int currTime)
+{
+    int minRem = INT_MAX;
+    int idx = -1;
+    for (int i = 0; i < process.size(); i++)
+    {
+        if (process[i].AT <= currTime && process[i].remainingTime > 0 && process[i].remainingTime < minRem)
+        {
+            minRem = process[i].remainingTime;
+            idx = i;
+        }
+    }
+    return idx;
+}
 
 void SJFPreemptive(vector<Process> &process)
 {

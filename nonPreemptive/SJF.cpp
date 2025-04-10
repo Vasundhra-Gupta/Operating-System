@@ -1,44 +1,58 @@
 #include <iostream>
-#include <vector>
-#include <algorithm>
 #include "../headers/process.h"
 using namespace std;
 
-void CT(vector<Process> &processes, int n)
+int findNextProcess(vector<Process> process, int currTime, vector<bool> completed)
 {
-    int currentTime = 0;
-    for (int i = 0; i < n; i++)
+    int minRem = INT_MAX;
+    int idx = -1;
+    for (int i = 0; i < process.size(); i++)
     {
-        currentTime = max(currentTime, processes[i].AT) + processes[i].BT;
-        processes[i].CT = currentTime;
+        if (process[i].AT <= currTime && !completed[i] && process[i].BT < minRem)
+        {
+            minRem = process[i].BT;
+            idx = i;
+        }
     }
+    return idx;
 }
 
-void FCFS(vector<Process> &processes, int n)
+void SJFNonPreemptive(vector<Process> &processes)
 {
-    for (int i = 0; i < n; i++)
+    int n = processes.size();
+    vector<bool> completed(n, false);
+
+    int i = 0;
+    int complete = 0;
+    int currentTime = 0;
+    while (complete < n)
     {
-        processes[i].WT = processes[i].CT - processes[i].BT - processes[i].AT;
-        processes[i].TT = processes[i].CT - processes[i].AT;
+        if (i != -1)
+        {
+
+            i = findNextProcess(processes, currentTime, completed);
+            currentTime += processes[i].BT;
+            processes[i].CT = currentTime;
+            processes[i].remainingTime = 0;
+            completed[i] = true;
+            complete++;
+        }
+        else
+        {
+            currentTime++;
+        }
     }
+    WT_TT(processes);
+    showProcess(processes);
 }
 
 int main()
 {
-    // cout << "Enter the number of processes:" << endl;
     int n = 5;
+    // cout << "Enter the number of processes:" << endl;
     // cin >> n;
     // vector<Process> processes(n, {0, 0, 0});
-    vector<Process> processes = {
-        {1, 0, 10},
-        {2, 1, 1},
-        {3, 2, 2},
-        {4, 3, 1},
-        {5, 4, 5}};
     // inputProcess(processes, n);
-    CT(processes, n);
-    FCFS(processes, n);
-    showProcess(processes, n);
-
+    SJFNonPreemptive(allProcesses);
     return 0;
 }
