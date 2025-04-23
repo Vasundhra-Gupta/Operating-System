@@ -1,5 +1,5 @@
 #include <iostream>
-#include "../../headers/maxHeap.h"
+#include "../headers/process.h"
 using namespace std;
 int findNextProcess(vector<Process> process, int currTime, vector<bool> completed)
 {

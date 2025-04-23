@@ -1,5 +1,5 @@
 #include <iostream>
-#include "../../headers/process.h"
+#include "../headers/process.h"
 using namespace std;
 
 // we r checking things only when remaintime>0;

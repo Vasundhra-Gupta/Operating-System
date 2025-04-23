@@ -1,5 +1,5 @@
 #include <iostream>
-#include "../../headers/maxHeap.h"
+#include "../headers/process.h"
 using namespace std;
 
 void RoundRobin(vector<Process> process, int quantum)

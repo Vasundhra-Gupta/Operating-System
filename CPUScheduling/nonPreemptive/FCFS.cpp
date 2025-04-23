@@ -1,6 +1,6 @@
 #include <iostream>
 #include <algorithm>
-#include "../../headers/maxHeap.h"
+#include "../headers/process.h"
 using namespace std;
 
 
@@ -8,7 +8,6 @@ void FCFS(vector<Process> &processes)
 {
     int n = processes.size();
     vector<GanttChart> ganttchart;
-    // heapSort(processes);
     int currentTime = 0;
     for (int i = 0; i < n; i++)
     {
